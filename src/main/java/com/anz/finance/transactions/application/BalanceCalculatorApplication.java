@@ -25,7 +25,7 @@ public class BalanceCalculatorApplication {
 	    try {
 		scanner = new Scanner(System.in);
 		scanner.useDelimiter(Pattern.compile("([\n;]|(\r\n))+"));
-		System.out.println("Enter number account ID : ");
+		System.out.println("Enter number account ID (example: ACC3XXXX5): ");
 		String accountId = scanner.nextLine();
 		System.out.println("Enter the from date in dd/MM/yyyy HH:mm:ss format: ");
 		String fromDateTimeString = scanner.nextLine();

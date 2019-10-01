@@ -1,13 +1,16 @@
 package com.anz.finance.transactions.calculator;
 
 import static com.anz.finance.transactions.constants.BalanceCalculatorConstants.DATE_TIME_FORMAT;
+import static com.anz.finance.transactions.constants.BalanceCalculatorConstants.ACCOUNT_ID_FORMAT;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.anz.finance.transactions.exception.AccountIdFormatException;
 import com.anz.finance.transactions.model.BalanceCalculatorResponse;
 import com.anz.finance.transactions.model.TransactionRecord;
 import com.anz.finance.transactions.model.TransactionType;
@@ -22,6 +25,10 @@ public class BalanceCalculator {
 
     public static BalanceCalculatorResponse calculateBalance(List<TransactionRecord> financialTransactions,
 	    String accountId, String fromDateTimeString, String toDateTimeString) {
+
+	if (!Pattern.matches(ACCOUNT_ID_FORMAT, accountId)) {
+	    throw new AccountIdFormatException("Account Id is not in the expected format");
+	}
 
 	List<TransactionRecord> paymentTransactionRecords = getPaymentTransactions(financialTransactions, accountId,
 		fromDateTimeString, toDateTimeString);
